@@ -108,8 +108,7 @@ h6 {
 }
 
 .section-heading-spacer {
-    float: left;
-    width: 200px;
+
     border-top: 3px solid #e7e7e7;
 }
 
@@ -178,6 +177,78 @@ p.copyright {
 #searchRepo{
     color: #000000;
 }
+#intro input{
+    color: #000000;
+}
+
+.table th{
+    background: #006060;
+    padding: 1px;
+    color: #fff;
+    text-align: center;
+}
+
+.table tr:nth-child(odd):hover{
+    background-color: #f7ecb5;
+}
+.table tr:nth-child(even):hover{
+    background-color: #f7ecb5;
+}
+
+.table {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.container{
+    align-items: center;
+}
+#listFiles{
+    list-style-type: none;
+}
+#listFiles li{
+    color: #6495ED;
+    font-size: 120%;
+}
+#listFiles i{
+    margin-right: 4px;
+}
+#fa-file-text-o i{
+    color: #ffffff;
+}
+#filesTable{
+    max-width: 600px;
+    min-width: 300px;
+}
+#filesTable th{
+    background-color: #006060;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+#filesTable td{
+    background-color: #F5F5F5;
+    padding: 10px;
+
+}
+.redText{
+    color: red;
+}
+#overviewList{
+    list-style-type: none;
+}
+#overviewList p{
+    font-size: 120%;
+}
+#repoDetails th a{
+    color: lightyellow;
+    text-decoration: none;
+}
+i{
+   
+}
+
+
 /*
 #firstSection{
     display: none;

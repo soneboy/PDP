@@ -1,32 +1,24 @@
-var myApp = angular.module('MyApp', []);
+var myApp = angular.module('MyApp', ['ngSanitize', 'ui.bootstrap']);
 
-myApp.controller('newController', function($scope, $http, $anchorScroll, $location) {
+myApp.controller('newController', function($scope, $http, $location, $anchorScroll) {
 
-    $scope.actions = [{
-        id: 1,
-        name: 'Serch Users'
-    }, {
-        id: 2,
-        name: 'Serch Repos'
-    }];
+    $scope.gotoAbout = function() {
 
+        $location.hash('about');
+        $anchorScroll();
+    }
 
+    $scope.gotoRepos = function() {
 
-    $scope.changeAction = function(selectedAction){
+        $location.hash('repos');
+        $anchorScroll();
+    }
 
-        if(selectedAction.id == 1){
-            $scope.showUserDiv = true;
-            $scope.showRepoDiv = false;
-        }
-        else if(selectedAction.id == 2){
-            $scope.showUserDiv = false;
-            $scope.showRepoDiv = true;
-        }
-        else{
-            $scope.showUserDiv = false;
-            $scope.showRepoDiv = false;
-        }
-    };
+    $scope.gotoSingleRepo = function() {
+
+        $location.hash('singleRepo');
+        $anchorScroll();
+    }
 
     var getGithub = function(response) {
 
@@ -35,58 +27,134 @@ myApp.controller('newController', function($scope, $http, $anchorScroll, $locati
         if ($scope.user) {
 
             $scope.userDiv = true;
-            $scope.noContentDiv = false;
 
         }
         if ($scope.user.login == 'undefined') {
             $scope.message = 'Please enter your username!';
         }
-        if (typeof $scope.user.name == 'undefined') {
-            $scope.user.name = 'Not provided at github';
-        }
 
-        $location.hash('generalOverview');
-        $anchorScroll();
+        $scope.fullName = response.data.name ? '<p>Full name : ' + response.data.name + '</p>' : '<p class="redText"> Full name : Not provided at github!</p>';
+        $scope.userLocation = response.data.location ? '<p> Location : ' + response.data.location + '</p>' : '<p class="redText"> Location : Not provided at github!</p>';
+        $scope.userCompany = response.data.company ? '<p> Company : ' + response.data.company + '</p>' : '<p class="redText"> Company : Not provided at github!</p>';
+        $scope.userEmail = response.data.email ? '<p> Email : ' + response.data.email + '</p>' : '<p class="redText"> Email : Not provided at github!</p>';
+
         console.log($scope.user);
         $http.get($scope.user.repos_url).then(repos);
     };
 
-    var getRepo = function(response){
-
-        $scope.userRepo = response.data;
-        if($scope.userRepo){
-            $scope.userDiv = false;
-            $scope.repoDiv = true;
-        }
-        console.log($scope.userRepo);
-    };
     var repos = function(response) {
 
         $scope.repository = response.data;
-        console.log($scope.repository);
+        //console.log($scope.repository.length);
+
+        $scope.totalItems = $scope.repository.length;
+        console.log($scope.totalItems);
+        $scope.currentPage = 1;
+        $scope.numPerPage = 10;
+
+        $scope.paginate = function(value) {
+            var begin, end;
+            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+            end = begin + $scope.numPerPage;
+            index = $scope.repository.indexOf(value);
+            return (begin <= index && index < end);
+        };
     };
 
-
     $scope.search = function(username) {
+        $scope.commitDetails = 'false';
+        $scope.repoOverview = 'false';
+
         if (username == undefined) {
             alert('Please provide your username!');
             return false;
             // $scope.message = 'Please enter your github username!';
 
         } else {
+
             $scope.message = '';
             $http.get('https://api.github.com/users/' + username).then(getGithub, function() {
                 console.log(username);
                 $scope.message = 'User ' + username + ' doesnt exist at Github';
             });
+
+            $http.get('https://api.github.com/users/' + username + '/gists').then(function(response) {
+                $scope.gists = response.data;
+                console.log($scope.gists);
+            });
+
+            setTimeout(function(){
+                $location.hash('about');
+                $anchorScroll();
+            }, 1000);
+
         }
+
+        return $scope.username = username;
     };
 
-    $scope.searchrepo = function(username,repo){
+    $scope.showRepo = function(selectRepo) {
 
-        $http.get('https://api.github.com/repos/' + username + '/' + repo).then(getRepo);
+        console.log(selectRepo);
 
-       // console.log(repo);
+        $http.get('https://api.github.com/repos/' + $scope.username + '/' + selectRepo.name).then(function(response) {
+            $scope.singleRepo = response.data;
+            console.log($scope.singleRepo);
+        });
+
+        $http.get('https://api.github.com/repos/' + $scope.username + '/' + selectRepo.name + '/commits').then(function(response) {
+            $scope.commits = response.data;
+            console.log($scope.commits);
+        });
+
+        $http.get('https://api.github.com/repos/' + $scope.username + '/' + selectRepo.name + '/git/trees/master?recursive=1').then(function(response) {
+
+            var files = response.data.tree;
+            console.log(files);
+
+            var filesArray = [];
+            var foldersArray = [];
+            var filesCompare = [];
+            var testArray = [];
+            var folderCompare = [];
+
+            for (var i = 0; i < files.length; i++) {
+
+                filesArray.push(files[i].path);
+
+                if (filesArray[i].indexOf('/') >= 0) {
+
+                    foldersArray.push('<i class="fa fa-folder"></i>' + filesArray[i].substring(0, filesArray[i].indexOf('/')) + '<br/>');
+                    folderCompare.push(filesArray[i].substring(0, filesArray[i].indexOf('/')));
+                    testArray.push(filesArray[i]);
+                    // filesArrayIcon =  filesArray.splice(testArray[i]);
+                }
+            }
+            console.log(testArray);
+            console.log(foldersArray);
+
+            $scope.showFolders = jQuery.unique(foldersArray).join("");
+            filesCompare = filesArray.filter(function(value) {
+                return testArray.indexOf(value) < 0;
+            });
+            var newArray = [];
+            newArray = filesCompare.filter(function(value) {
+                return folderCompare.indexOf(value) < 0;
+            });
+
+            var showFiles = [];
+            for (var j = 0; j < newArray.length; j++) {
+                showFiles.push('<i class="fa fa-file-text-o"></i>' + newArray[j] + '<br/>');
+            }
+            $scope.showJoinedFiles = showFiles.join("");
+
+            console.log($scope.showFiles);
+        });
+
+        $scope.repoOverview = 'true';
+        $scope.commitDetails = 'true';
     }
-});
+    $scope.sortType = 'id';
+    $scope.sortReverse = false;
 
+});
