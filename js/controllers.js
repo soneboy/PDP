@@ -38,6 +38,22 @@ myApp.controller('newController', function($scope, $http, $location, $anchorScro
         $scope.userCompany = response.data.company ? '<p> Company : ' + response.data.company + '</p>' : '<p class="redText"> Company : Not provided at github!</p>';
         $scope.userEmail = response.data.email ? '<p> Email : ' + response.data.email + '</p>' : '<p class="redText"> Email : Not provided at github!</p>';
 
+        var url = 'admin/classes/githubusers.php/getUsers';
+
+        var data = {
+            name: $scope.user.login,
+            reponumber: $scope.user.public_repos
+        }
+       // console.log(data);
+        $http({
+            method:'POST',
+            url: url,
+            data: data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(data){
+            console.log(data);
+        });
+
         console.log($scope.user);
         $http.get($scope.user.repos_url).then(repos);
     };
