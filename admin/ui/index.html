@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MyPanel">
 
 <head>
 
@@ -23,6 +23,8 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,7 +34,7 @@
 
 </head>
 
-<body>
+<body ng-controller="panelCotroller">
 
     <div id="wrapper">
 
@@ -46,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="index.php">SB Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -70,7 +72,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href=""><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -88,12 +90,26 @@
         </nav>
 
         <div id="page-wrapper">
+
+            <!--
+            $scope.competitions = []
+compSet = []
+for(var i; i < $scope.listings.competitions; i++){
+   var competition = $scope.listings.competitions[i];
+   if( i % 3 ){
+      $scope.competitions.push(compSet);
+      compSet = [];
+   }
+   compSet.push(competition);
+}
+!-->
+<!--
             <div class="container-fluid">
 
                 <div class="leftHalf">
-                    <p>I will fill up the left half of the available space most of the time, but if the screen gets too small, will take up 100% of the screen width and turn red.</p>
+                    <p> I will fill up the right half of the available space most of the time, but if the screen gets too small, will take up 100% of the screen width and turn blue.</p>
                 </div>
-                <div class="rightHalf">
+                    <div class="rightHalf">
                     <p>I will fill up the right half of the available space most of the time, but if the screen gets too small, will take up 100% of the screen width and turn blue.</p>
                 </div>
                 <div class="leftHalf">
@@ -102,7 +118,19 @@
                 <div class="rightHalf">
                     <p>I will fill up the right half of the available space most of the time, but if the screen gets too small, will take up 100% of the screen width and turn blue.</p>
                 </div>
+!-->
+                <div id="showGitusers" style="width: 1400px;">
 
+                         <div class="container" ng-repeat="user in gitUsers" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
+                               <ul>
+                                 <li><img ng-src="{{user.img}}" style="width: 100px;height: 100px;"/></li>
+                                 <li>{{user.name}}</li>
+                                 <li>{{user.repos}}</li>
+                                 <li>{{user.created}}</li>
+                                 <li>{{user.updated}}</li>
+                               </ul>
+                         </div>
+                </div>
             </div>
             <!-- /.container-fluid -->
 
@@ -117,6 +145,8 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+   <script src="../js/controllers.js"></script>
 
 </body>
 

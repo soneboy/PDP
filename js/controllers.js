@@ -42,8 +42,11 @@ myApp.controller('newController', function($scope, $http, $location, $anchorScro
 
         var data = {
             name: $scope.user.login,
-            reponumber: $scope.user.public_repos
-        }
+            reponumber: $scope.user.public_repos,
+            created: $scope.user.created_at,
+            updated: $scope.user.updated_at,
+            img: $scope.user.avatar_url
+        };
        // console.log(data);
         $http({
             method:'POST',
