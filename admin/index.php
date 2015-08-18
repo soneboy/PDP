@@ -21,7 +21,6 @@
          }
          ?>
 
-
          <form class="form" id="form1" method="post">
 
              <p class="name">

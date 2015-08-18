@@ -24,7 +24,7 @@ class Githubusers{
 
       $connect->connect();
 
-      $sql = "INSERT INTO githubusers(name,repos,created,updated,img) VALUES('{$name}',{$repos},'{$created}','{$updated}','{$img}')";
+      $sql = "INSERT INTO githubusers(name,repos,created,updated,img,date_visited) VALUES('{$name}',{$repos},'{$created}','{$updated}','{$img}', NOW())";
       $connect->db->query($sql);
   }
 

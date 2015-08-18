@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Example - example-example98-production</title>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="../js/testcontroller.js"></script>
+
+
+</head>
+<body ng-controller="myController">
+
+<h4>Popup</h4>
+<div class="row">
+    <div class="col-md-6">
+        <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{format}}"  is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-model="searchText" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+        </p>
+    </div>
+</div>
+
+<div class="container" ng-repeat="friend in friends | filter:searchText" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
+    <ul>
+
+        <li><strong>Username : </strong>{{friend.name}}</li>
+        <li><strong>Repos : </strong>{{friend.repos}}</li>
+    </ul>
+</div>
+
+
+</body>
+</html>

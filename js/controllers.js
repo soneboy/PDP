@@ -40,6 +40,8 @@ myApp.controller('newController', function($scope, $http, $location, $anchorScro
 
         var url = 'admin/classes/githubusers.php/getUsers';
 
+
+
         var data = {
             name: $scope.user.login,
             reponumber: $scope.user.public_repos,
@@ -172,7 +174,7 @@ myApp.controller('newController', function($scope, $http, $location, $anchorScro
 
         $scope.repoOverview = 'true';
         $scope.commitDetails = 'true';
-    }
+    };
     $scope.sortType = 'id';
     $scope.sortReverse = false;
 

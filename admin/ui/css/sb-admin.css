@@ -232,3 +232,23 @@ ul.alert-dropdown {
     .leftHalf{ width: 100%; color: red; }
     .rightHalf{ width: 100%; color: blue; }
 }
+#showGitusers img{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+}
+#showGitusers ul{
+    list-style-type: none;
+}
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+
+

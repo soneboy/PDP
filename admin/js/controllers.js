@@ -1,21 +1,23 @@
-var myPanel = angular.module('MyPanel', []);
+var myPanel = angular.module('MyPanel', ['ngAnimate', 'ui.bootstrap']);
 
 myPanel.controller('panelCotroller', function($scope, $http) {
 
 $http.get('../classes/githubusers.php').then(function(response){
 
     $scope.gitUsers = response.data;
-    console.log($scope.gitUsers.length);
+    console.log($scope.gitUsers);
 
-    var dataDB = [];
-    for(var i = 0; i< $scope.gitUsers.length; i++) {
-        if (i % 4 == 0) {
-            dataDB.push([]);
-        }
-        dataDB[dataDB.length - 1].push($scope.gitUsers[i]);
-    }
-    $scope.newUsers = dataDB;
-    console.log($scope.newUsers);
    });
+
+$scope.addFilter = function(searchText){
+
+    var getDate = new Date(searchText);
+    $scope.filterResult = getDate.format('yyyy-mm-dd');
+    console.log($scope.filterResult);
+
+
+}
+
 });
+
 
