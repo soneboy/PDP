@@ -34,7 +34,7 @@
 
 </head>
 
-<body ng-controller="panelCotroller">
+<body>
 
     <div id="wrapper">
 
@@ -72,90 +72,25 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="#/"><i class="fa fa-fw fa-dashboard"></i> User Statistics</a>
                     </li>
                     <li>
-                        <a href=""><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a href="#/searchstats"><i class="fa fa-search"></i> Search Statistics</a>
                     </li>
                     <li>
-                        <a href=""><i class="fa fa-fw fa-table"></i> Tables</a>
+                        <a href="#/adminusers"><i class="fa fa-users"></i> Admins</a>
                     </li>
                     <li>
-                        <a href=""><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="#/uisettings"><i class="fa fa-paint-brush"></i> UI Settings</a>
                     </li>
 
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-
-        <div id="page-wrapper" style="background: #2F4F4F;">
-
-            <!--
-            $scope.competitions = []
-compSet = []
-for(var i; i < $scope.listings.competitions; i++){
-   var competition = $scope.listings.competitions[i];
-   if( i % 3 ){
-      $scope.competitions.push(compSet);
-      compSet = [];
-   }
-   compSet.push(competition);
-}
-!-->
-            <h1 class="page-header" style="color: #ffffff;">Statistics Overview
-            </h1>
-            <div class="container-fluid" style="background: #000000;">
+        <div id="main" ng-view></div>
 
 
-
-                <div id="showGitusers" style="width: 1400px;">
-                    <style>
-                        .full button span {
-                            background-color: limegreen;
-                            border-radius: 32px;
-                            color: black;
-                        }
-                        .partially button span {
-                            background-color: orange;
-                            border-radius: 32px;
-                            color: black;
-                        }
-                    </style>
-
-                    <div ng-controller="DatepickerDemoCtrl">
-
-
-
-                        <h4>Popup</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="input-group">
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}"  is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-model="searchText" ng-focus="addFilter(searchText)"  readonly/>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-                                </p>
-                            </div>
-                        </div>
-                      </div>
-                    <div class="container" ng-repeat="friend in gitUsers | filter:filterResult" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
-                        <ul>
-                            <li><img ng-src="{{friend.img}}" /></li>
-                            <li><strong>Username : </strong>{{friend.name}}</li>
-                            <li><strong>Repos : </strong>{{friend.repos}}</li>
-                            <li><strong>Created at : </strong>{{friend.created}}</li>
-                            <li><strong>Updated at : </strong>{{friend.updated}}</li>
-                            <li><strong>Serched at :</strong>{{friend.date_visited}}</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
 
 
     </div>
@@ -167,11 +102,15 @@ for(var i; i < $scope.listings.competitions; i++){
     <!-- Bootstrap Core JavaScript -->
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="../js/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.3.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="../js/prototype.js"></script>
-    <script src="../js/controllers.js"></script>
+    <script src="../js/adminApp.js"></script>
+    <script src="../js/githubService.js"></script>
+    <script src="../js/panelController.js"></script>
+    <script src="../js/searchController.js"></script>
     <script src="../js/datepicker.js"></script>
 
 </body>

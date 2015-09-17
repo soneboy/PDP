@@ -1,0 +1,14 @@
+<div id="page-wrapper" style="background: #2F4F4F;">
+<h1 class="page-header" style="color: #ffffff;">Search Statistics
+</h1>
+<div class="container-fluid" style="background: #000000;" ng-cotroller="searchController">
+    <select class="form-control" ng-model="selectedUser" ng-change="showSelectedUser(selectedUser)">
+    <option ng-repeat="users in test" value="{{users}}">{{users}}</option>
+        </select>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
+</div>

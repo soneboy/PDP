@@ -1,0 +1,67 @@
+<div id="page-wrapper" style="background: #2F4F4F;">
+
+    <!--
+    $scope.competitions = []
+compSet = []
+for(var i; i < $scope.listings.competitions; i++){
+var competition = $scope.listings.competitions[i];
+if( i % 3 ){
+$scope.competitions.push(compSet);
+compSet = [];
+}
+compSet.push(competition);
+}
+!-->
+    <h1 class="page-header" style="color: #ffffff;">Statistics Overview
+    </h1>
+    <div class="container-fluid" style="background: #000000;">
+
+
+
+        <div id="showGitusers" style="width: 1400px;">
+            <style>
+                .full button span {
+                    background-color: limegreen;
+                    border-radius: 32px;
+                    color: black;
+                }
+                .partially button span {
+                    background-color: orange;
+                    border-radius: 32px;
+                    color: black;
+                }
+            </style>
+
+            <div ng-controller="DatepickerDemoCtrl">
+
+
+
+                <h4>Popup</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}"  is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-model="searchText" ng-focus="addFilter(searchText)"  readonly/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container" ng-repeat="friend in gitUsers | filter:filterResult" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
+                <ul>
+                    <li><img ng-src="{{friend.img}}" /></li>
+                    <li><strong>Username : </strong>{{friend.name}}</li>
+                    <li><strong>Repos : </strong>{{friend.repos}}</li>
+                    <li><strong>Created at : </strong>{{friend.created}}</li>
+                    <li><strong>Updated at : </strong>{{friend.updated}}</li>
+                    <li><strong>Serched at :</strong>{{friend.date_visited}}</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- /#page-wrapper -->
