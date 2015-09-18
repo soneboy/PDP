@@ -16,8 +16,6 @@
                 method: 'POST',
                 url: url,
                 data: userValue,
-            }).success(function (data) {
-                console.log(data);
             })
         };
 

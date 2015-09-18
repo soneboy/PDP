@@ -5,6 +5,23 @@
     <select class="form-control" ng-model="selectedUser" ng-change="showSelectedUser(selectedUser)">
     <option ng-repeat="users in test" value="{{users}}">{{users}}</option>
         </select>
+    <div id="show_unigue_user">
+        <p>{{uniqueUser.name}}</p>
+        <p>{{uniqueUser.searchedtimes}}</p>
+
+        <table>
+            <tr>
+            <th>Time Visited</th>
+            <th>IP</th>
+            </tr>
+            <tr ng-repeat="unique in dataArray">
+            <td>{{unique.date}}</td>
+            <td>{{unique.ip}}</td>
+            </tr>
+        </table>
+
+
+        </div>
 
 </div>
 <!-- /.container-fluid -->

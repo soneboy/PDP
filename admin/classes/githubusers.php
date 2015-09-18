@@ -74,9 +74,9 @@ class Githubusers{
 }
 $test = new Githubusers();
 //$test -> showGithubUsers();
-//$test -> showGithubUsers();
-//$test ->getUsers();
-$test -> test();
+$test -> showGithubUsers();
+$test ->getUsers();
+//$test -> test();
 
 ?>
 
