@@ -2,12 +2,19 @@
 <h1 class="page-header" style="color: #ffffff;">Search Statistics
 </h1>
 <div class="container-fluid" style="background: #000000;" ng-cotroller="searchController">
-    <select class="form-control" ng-model="selectedUser" ng-change="showSelectedUser(selectedUser)">
-    <option ng-repeat="users in test" value="{{users}}">{{users}}</option>
-        </select>
-    <div id="show_unigue_user">
+    <select class="form-control" ng-model="selectedUser" ng-change="showSelectedUser(selectedUser)" id="selectUser">
+        <option value="">Select user</option>
+        <option ng-repeat="users in test" value="{{users}}">{{users}}</option>
+    </select>
+    <div id="showMostlyUser" ng-show="showMost">
+        <img ng-src="{{mostlySearched.img}}" />
+        <p>The mostly searched user is: {{mostlySearched.mostlysercheduser}}</p>
+        <p>Searched times: {{mostlySearched.serchedtimes}}</p>
+    </div>
+    <div id="show_unigue_user" ng-show="showUnique">
         <p>{{uniqueUser.name}}</p>
         <p>{{uniqueUser.searchedtimes}}</p>
+        <img ng-src="{{uniqueUser.img}}" />
 
         <table>
             <tr>

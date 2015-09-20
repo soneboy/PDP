@@ -16,7 +16,7 @@ class Database {
     public function connect(){
 
         try{
-            $db = new PDO('mysql:host=localhost;dbname=pdp','root','');
+            $db = new PDO('mysql:host=localhost;dbname=pdp','root','root');
         }
         catch(Exception $e){
             $error=$e->getMessage();

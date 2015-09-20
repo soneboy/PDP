@@ -6,6 +6,7 @@ class Singleuser{
 
     public $name;
     public $date_visited;
+    public $img;
     public $ip;
 
     public function __construct(){
@@ -16,7 +17,7 @@ class Singleuser{
             $request = json_decode($postdata);
         }
 
-        $sql="SELECT name,date_visited,ip FROM githubusers WHERE name='{$request -> name}'";
+        $sql="SELECT name,date_visited,img,ip FROM githubusers WHERE name='{$request -> name}'";
         $connect = new Database($username="",$password="");
         $connect->connect();
         $result = $connect->db->query($sql);
@@ -24,16 +25,19 @@ class Singleuser{
         $name_array = [];
         $date_visited_array = [];
         $ip_array = [];
+        $img_array = [];
 
         while($row = $result -> fetch(PDO::FETCH_ASSOC)){
 
            $this->name = $row['name'];
            $this->date_visited = $row['date_visited'];
            $this->ip = $row['ip'];
+           $this->img = $row['img'];
 
             array_push($name_array, $this->name);
             array_push($date_visited_array,  $this->date_visited);
             array_push($ip_array,  $this->ip);
+            array_push($img_array,  $this->img);
 
         }
 
@@ -41,6 +45,7 @@ class Singleuser{
         $local_array=[];
         $local_object = new stdClass();
         $local_object -> name = $this -> name;
+        $local_object -> img = $img_array[0];
         $local_object -> searchedtimes = sizeof($name_array);
 
 
