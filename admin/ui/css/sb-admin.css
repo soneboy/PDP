@@ -251,4 +251,40 @@ ul.alert-dropdown {
     color: black;
 }
 
+#selectUser{
+    width: 500px;
+    margin: 15px;
+}
+#searchedContainer img{
+    
+    width: 500px;
+    height: 500px;
+    float: left;
+   
+}
+#showMostlyUser{
+     margin: 15px;
+}
+
+#showMostlyUser p{
+    color: #fff;
+    font-size: 150%;
+}
+#show_unigue_user{
+    margin: 15px;
+}
+#show_unigue_user p{
+    color: #fff;
+}
+#createUser{
+    background-color: #fff;
+    padding: 30px;
+    max-width: 500px;
+    margin: 30px
+}
+#createUser input{
+    width: 400px;
+}
+
+
 

@@ -1,12 +1,54 @@
 <div id="page-wrapper" style="background: #2F4F4F;">
     <h1 class="page-header" style="color: #ffffff;">Admin Users
     </h1>
-    <div class="container-fluid" style="background: #000000;">
+    <div class="container-fluid" style="background: #000000;" ng-controller="adminsControllers">
+        <div id="myModal" class="modal fade" role="dialog">
+        <div class="alert alert-success" ng-show="showAlert">
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+        </div>       
+        <div id="showAdmins" ng-show="showAdmins" ng-click="changeBox()">
+             <input type="submit" value="Add New Admin" class="btn btn-primary"/>
     </div>
+        <div id="createUser" form-group ng-show="showForm">
+            
+            <form name="adminForm" ng-submit="addAdmins()">
+                    <label for="username">Username <span style="color:red;">*</span></label>
+                    <input type="text" id="username" class="form-control" ng-model="admin.username" required/><br/>
+              
+                    <label for="password">Password <span style="color:red;">*</span></label>
+                    <input type="text" id="password" class="form-control" ng-model="admin.password" required/><br/>
+                
+                    <label for="firstname">First name</label>
+                    <input type="text" id="firstname" class="form-control" ng-model="admin.name"/><br/>
+          
+                    <label for="lastname">Last name</label>
+                    <input type="text" id="lastname" class="form-control" ng-model="admin.lastname"/><br/>
+                    
+                    <label for="email">Email <span style="color:red;">*</span></label>
+                    <input type="text" id="email" class="form-control" ng-model="admin.email" required/><br/>
+              
+                    <label for="datebirth">Date of birth</label>
+                    <input type="text" id="datebirth" class="form-control" ng-model="admin.dateofbirth"/><br/>
+                    
+               
+                    <label for="address">Address</label>
+                    <input type="text" id="address" class="form-control" ng-model="admin.address"/><br/>
+            
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" ng-model="admin.city"/><br/>
+             
+                    <label for="state">State</label>
+                    <input type="text" id="state" class="form-control" ng-model="admin.state"/><br/>
+                    
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+            </form>
+            
+            
+        </div>
+       
     <!-- /.container-fluid -->
 
-    <div>
-    </div>
 
 </div>
 <!-- /#page-wrapper -->

@@ -12,6 +12,7 @@ class Githubusers{
 
     //function to get users from UI and insert in database
     public function getUsers(){
+        
 
         $this -> ip = $_SERVER['REMOTE_ADDR'];
         $postdata = file_get_contents("php://input");
@@ -48,7 +49,7 @@ class Githubusers{
   }
   public function test(){
 
-      $test1 = $_SERVER['REMOTE_ADDR'];
+        $test1 = $_SERVER['REMOTE_ADDR'];
         echo $test1;
   }
 

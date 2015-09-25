@@ -15,17 +15,16 @@
             return $http({
                 method: 'POST',
                 url: url,
-                data: userValue,
-            })
+                data: userValue
+            });
         };
 
         return {
             users: getUsers,
             searchUsers: searchUsers
-        }
-
-    }
-
+        };
+    };
+    
     var module = angular.module('MyPanel');
     module.factory('github', github);
 
