@@ -14,6 +14,7 @@ class Admins{
     public $adress;
     public $city;
     public $state;
+    public $usernames = [];
     
     public function __construct() {
         
@@ -38,7 +39,11 @@ class Admins{
             $connect->connect();
             $result = $connect->db->query($sql);
             $users_array = [];
-            
+            $this -> getUsernames();
+            echo json_encode($this-> usernames);
+           
+         
+            /*
             while($row = $result -> fetch(PDO::FETCH_ASSOC)){
                       
                       $localObject = new stdClass();
@@ -49,9 +54,14 @@ class Admins{
                       $localObject -> adress  = $row['adress'];
                       $localObject -> city = $row['city'];
                       $localObject -> state = $row['state'];
-                      array_push($users_array, $localObject);
-                      echo json_encode($users_array);
+                      array_push($users_array, $localObject);                 
             }
+         
+            
+            //array_push($users_array, $localObject -> usernames);
+            
+            echo json_encode($users_array);
+             */
         }           
     }
     
@@ -65,6 +75,19 @@ class Admins{
             
             $this -> id = $row['id'];
         }
+    }
+    
+    private function getUsernames(){
+        
+        $sql = "SELECT username FROM users";
+        $connect = new Database($username="",$password="");
+        $connect->connect();
+        $result = $connect->db->query($sql);
+        while($row = $result -> fetch(PDO::FETCH_ASSOC)){
+          
+          array_push($this -> usernames, $row['username']);
+        }
+        
     }
 }
 

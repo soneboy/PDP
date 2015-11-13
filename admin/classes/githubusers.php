@@ -35,7 +35,6 @@ class Githubusers{
 
   //function to show users on Admin
   public function showGithubUsers(){
-
       $sql = "SELECT * FROM githubusers ORDER BY id DESC";
       $connect = new Database($username="",$password="");
       $connect->connect();
