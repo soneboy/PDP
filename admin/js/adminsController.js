@@ -51,21 +51,17 @@ myPanel.controller('adminsControllers', function($log,$http,$scope,github, $time
         
     });
     
-   $scope.functionForUploadingImage = function(files){
+   $scope.deleteAdmin = function(admin){
        
-        var data = imageFileForUpload = files[0];
-        
-        //github.searchUsers('../classes/uploadPhoto.php', data).then(function(showImage){
-            
-           $http({
-           method: 'POST', 
-           url: '../classes/uploadPhoto.php', 
-           headers: {
-              "Content-Type": "multipart/form-data"
-           }
-});
-       
-        
-  };
+       if(confirm('Are you sure you want to delet user ' + admin + '?') === true){
+           
+           github.searchUsers('../classes/deleteAdmin.php', {admin: admin});
+       };
+   };
+    
+
+    
+
+
         
 });

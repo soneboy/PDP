@@ -17,13 +17,10 @@
 
                     <div class="form-group" ng-show="showForm" id="createUser">
                         
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                      Select image to upload:
                     
-    
-</form>
-                    <input type="file" name="file" onchange="angular.element(this).scope().functionForUploadingImage(this.files)"/>
-                    </form>
+                    <input type="file" name="image" id="image">
+                       
+
                     <label for="username">Username <span style="color:red;">*</span></label>
                     <input type="text" id="username" class="form-control" ng-model="admin.username" required/><br/>
               
@@ -83,6 +80,10 @@
         <tr>
             <td>State</td>
             <td>{{showUniqueAdmin.state}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete Admin" ng-click="deleteAdmin(showUsername)"</td>
         </tr>
     </table>
 </div>
