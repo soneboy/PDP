@@ -22,7 +22,5 @@ myPanel.config(function($routeProvider){
             controller: 'uisettingsController'
         })
 
-
-
         .otherwise({redirectTo:'/'});
 });

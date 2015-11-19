@@ -1,13 +1,13 @@
 <div id="page-wrapper" style="background: #2F4F4F;">
     <h1 class="page-header" style="color: #ffffff;">Admin Users
     </h1>
-   
-        <div class="alert alert-success" ng-show="showAlert">
-  <strong>Success!</strong> New Admin account has been added into database.
 </div>
-        </div>       
+        <div class="alert alert-success" ng-show="showAlert" id="sucessOrFail">
+          {{newUserResponse.message}}
+        </div>
+
         <div id="showAdmins" ng-show="showAdmins">
-           <div class="card card-block" ng-repeat="admin in showAdmins" style="float: left;margin: 30px;">
+           <div class="card card-block" ng-repeat="admin in showAdmins track by $index" style="float: left;margin: 30px; background: #fff;">
                <h3 class="card-title">{{admin}}</h3>
                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                <button class="btn btn-primary" ng-click="searchAdmins(admin)">See Profile</button>
@@ -48,11 +48,13 @@
                     <label for="state">State</label>
                     <input type="text" id="state" class="form-control" ng-model="admin.state"/><br/>
                  
-                    <input type="submit" value="Submit" name="upload" class="btn btn-primary"/>
+                    <input type="submit" value="Submit" name="upload" class="btn btn-primary" ng-click="addAdmins()"/>
                  
         </div>
-
-<div id="showUniqueAdmin" ng-show="showUniqueAdmin">
+     <div class="alert alert-success" ng-show="showDeleteSucess">
+    <strong>Success!</strong>{{deletedAdmin}}
+    </div>
+<div id="showUniqueAdmin" ng-show="showUniqueAdminBox">
     <table class="table" id="uniqueAdminTable">
         <tr>
             <th colspan="2"><h2>{{showUsername}}</h2></th>

@@ -58,7 +58,7 @@
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse" ng-controller="globalController">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
                         <a href="#/"><i class="fa fa-fw fa-dashboard"></i> User Statistics</a>
@@ -67,7 +67,7 @@
                         <a href="#/searchstats"><i class="fa fa-search"></i> Search Statistics</a>
                     </li>
                     <li>
-                        <a href="#/adminusers"><i class="fa fa-users"></i> Admins</a>
+                        <a href="#/adminusers"><i class="fa fa-users" ng-click="refresh()"></i> Admins</a>
                     </li>
                     <li>
                         <a href="#/uisettings"><i class="fa fa-paint-brush"></i> UI Settings</a>
@@ -95,6 +95,7 @@
     <script src="../js/angular-route.js"></script>
     <script src="../js/prototype.js"></script>
     <script src="../js/adminApp.js"></script>
+    <script src="../js/globalController.js"></script>
     <script src="../js/githubService.js"></script>
     <script src="../js/panelController.js"></script>
     <script src="../js/searchController.js"></script>

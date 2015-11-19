@@ -292,7 +292,9 @@ ul.alert-dropdown {
     width: 600px;
     background-color: white;
 }
-
+.page-wrapper{
+    margin-bottom: 20px;
+}
 
 
 

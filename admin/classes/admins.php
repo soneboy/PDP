@@ -15,6 +15,7 @@ class Admins{
     public $city;
     public $state;
     public $usernames = [];
+
     
     public function __construct() {
         
@@ -22,17 +23,40 @@ class Admins{
      $postdata = file_get_contents("php://input");
      
         if($postdata != '') {
+            
             $request = json_decode($postdata);
+            
+              $connect = new Database($username="",$password="");
+              $connect ->connect();
+              
+              $sqlCheck = "SELECT * FROM users WHERE username='{$request -> username}'";
+              $checkResult = $connect->db->query($sqlCheck)->rowCount();
+              
+              $errorMsg = new stdClass();
+              
+              if($checkResult >= 1){
+                  
+                  $errorMsg -> message = "This username is already taken!";
+                  $errorMsg-> value = false;
+                  echo json_encode($errorMsg);
+              }
+              else{
+            
             $sql = "INSERT INTO users(username,password) VALUES('{$request -> username}','{$request -> password}')";
-            $connect = new Database($username="",$password="");
-            $connect ->connect();
+          
             $connect->db->query($sql);
             $this -> findAdminId($request -> username);
             
             $sql2 = "INSERT INTO admins(admin_id,name,last_name,email,date_of_birth,adress,city,state) VALUES({$this ->id},'{$request ->name}','{$request ->lastname}','{$request ->email}','{$request ->dateofbirth}','{$request ->address}','{$request ->city}','{$request -> state}')";
             $connect->db->query($sql2);
+                
+                  $errorMsg -> message = "New admin has been added to database";
+                  $errorMsg-> value = true;
+                  echo json_encode($errorMsg);
+                    }
+               
             }
-        else{
+            else{
            
             $sql = "SELECT * FROM admins";
             $connect = new Database($username="",$password="");
@@ -42,26 +66,6 @@ class Admins{
             $this -> getUsernames();
             echo json_encode($this-> usernames);
            
-         
-            /*
-            while($row = $result -> fetch(PDO::FETCH_ASSOC)){
-                      
-                      $localObject = new stdClass();
-                      $localObject -> name = $row['name'];
-                      $localObject -> last_name = $row['last_name'];
-                      $localObject -> email = $row['email'];
-                      $localObject -> date_of_birth = $row['date_of_birth'];
-                      $localObject -> adress  = $row['adress'];
-                      $localObject -> city = $row['city'];
-                      $localObject -> state = $row['state'];
-                      array_push($users_array, $localObject);                 
-            }
-         
-            
-            //array_push($users_array, $localObject -> usernames);
-            
-            echo json_encode($users_array);
-             */
         }           
     }
     
