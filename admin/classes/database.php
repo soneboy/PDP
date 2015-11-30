@@ -28,23 +28,6 @@ class Database {
         $this->db = $db;
     }
 
-    public function login(){
-
-        $sql="SELECT * FROM users WHERE username='{$this->username}' AND password='{$this->password}'";
-        //$this->connect();
-        $this->connect();
-        $row = $this->db -> query($sql) -> rowCount();
-        if($row > 0){
-            $_SESSION['username'] = $this->username;
-            header('Location: ui/index.html');
-        }
-        else{
-            $this->message = 'Invalid username or password';
-        }
-        //var_dump($row);
-       
-    }
-
 }
 
 ?>

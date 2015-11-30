@@ -2,25 +2,29 @@
     <h1 class="page-header" style="color: #ffffff;">Admin Users
     </h1>
 </div>
-        <div class="alert alert-success" ng-show="showAlert" id="sucessOrFail">
+        <div class="alert alert-success" ng-show="showAlert" id="sucessOrFail" ng-style="messageBox">
           {{newUserResponse.message}}
         </div>
+       
+<div ng-style="{margin: '15px'}">
+     <input type="submit" value="Add New Admin" class="btn btn-success" ng-click="changeBox()" ng-show="addButton"/>
+</div>
+     <div id="showAdmins" ng-show="showAdmins">
+         
+         <div class="card" ng-repeat="admin in showAdminsData.names track by $index" id="parendiv" ng-style="parentStyle">
+             <div class="card card-block"  ng-style="cardStyle">
+                              <img width="100" height="100" src="http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg" alt="Card image cap" />
 
-        <div id="showAdmins" ng-show="showAdmins">
-           <div class="card card-block" ng-repeat="admin in showAdmins track by $index" style="float: left;margin: 30px; background: #fff;">
                <h3 class="card-title">{{admin}}</h3>
                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                <button class="btn btn-primary" ng-click="searchAdmins(admin)">See Profile</button>
-    </div>
-             <input type="submit" value="Add New Admin" class="btn btn-primary" ng-click="changeBox()"/>
-    </div>
-
+           </div>
+             <br ng-if="($index +1) % 2 == 0" ng-style="lineStyle"/>
+         </div>  
+</div>
                     <div class="form-group" ng-show="showForm" id="createUser">
-                        
+                    <div class="button" ngf-select="upload($file)">Upload on file select</div>
                     
-                    <input type="file" name="image" id="image">
-                       
-
                     <label for="username">Username <span style="color:red;">*</span></label>
                     <input type="text" id="username" class="form-control" ng-model="admin.username" required/><br/>
               
@@ -51,18 +55,23 @@
                     <input type="submit" value="Submit" name="upload" class="btn btn-primary" ng-click="addAdmins()"/>
                  
         </div>
-     <div class="alert alert-success" ng-show="showDeleteSucess">
+     <div class="alert alert-success" ng-show="showDeleteSucess" ng-style="messageBox">
     <strong>Success!</strong>{{deletedAdmin}}
     </div>
-<div id="showUniqueAdmin" ng-show="showUniqueAdminBox">
-    <table class="table" id="uniqueAdminTable">
-        <tr>
-            <th colspan="2"><h2>{{showUsername}}</h2></th>
-        </tr>
-        <tr>
+<div id="showUniqueAdmin" ng-show="showUniqueAdminBox" ng-style="{'margin':'30px'}">
+    <fieldset>
+    <table class="table table-striped" id="uniqueAdminTable">
+         <tr ng-style="{'background':'#5F9EA0','color':'#fff'}">
+           
+            <th><h2 ng-style="{'margin':'0px'}">{{showUsername}}</h2></th>
+            <th><button class="btn btn-danger" ng-click="deleteAdmin(showUsername)">Delete Admin</button></th>
+            <th></th>
+         </tr>
+         <tr>
             <td>Name </td>
             <td>{{showUniqueAdmin.name}} {{showUniqueAdmin.last_name}}</td>
-        </tr>
+            <td rowspan="7"><img src="https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg" width="200" height="200"></td>
+         </tr>
          <tr>
             <td>Date of birth </td>
             <td>{{showUniqueAdmin.date_of_birth}}</td>
@@ -83,10 +92,6 @@
             <td>State</td>
             <td>{{showUniqueAdmin.state}}</td>
         </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Delete Admin" ng-click="deleteAdmin(showUsername)"</td>
-        </tr>
     </table>
 </div>
-       
+

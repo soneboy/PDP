@@ -16,6 +16,7 @@ class Githubusers{
 
         $this -> ip = $_SERVER['REMOTE_ADDR'];
         $postdata = file_get_contents("php://input");
+        
         if($postdata != '') {
             $request = json_decode($postdata);
             $this->insertUsers($request->name, $request->reponumber, $request->created, $request->updated, $request->img, $this->ip);
@@ -35,6 +36,7 @@ class Githubusers{
 
   //function to show users on Admin
   public function showGithubUsers(){
+      
       $sql = "SELECT * FROM githubusers ORDER BY id DESC";
       $connect = new Database($username="",$password="");
       $connect->connect();
@@ -51,26 +53,6 @@ class Githubusers{
         $test1 = $_SERVER['REMOTE_ADDR'];
         echo $test1;
   }
-
-    /*
-   //function to show unique users from dB
-  public function showUniqueUsers(){
-
-      $sql = "SELECT * FROM githubusers";
-      $connect = new Database($username="",$password="");
-      $connect->connect();
-      $result = $connect->db->query($sql);
-      $nameArray = [];
-      while($row = $result -> fetch(PDO::FETCH_ASSOC)){
-          $this -> name = $row['name'];
-          array_push($nameArray,  $this -> name);
-      }
-
-      $uniqueNameArray = [];
-      $uniqueNameArray = array_unique($nameArray);
-      echo json_encode($uniqueNameArray);
-  }
-    */
 }
 $test = new Githubusers();
 //$test -> showGithubUsers();

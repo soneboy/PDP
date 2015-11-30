@@ -15,11 +15,13 @@ class Admins{
     public $city;
     public $state;
     public $usernames = [];
+   
 
     
     public function __construct() {
         
-
+     $usernamesObject = new stdClass();
+     
      $postdata = file_get_contents("php://input");
      
         if($postdata != '') {
@@ -41,8 +43,10 @@ class Admins{
                   echo json_encode($errorMsg);
               }
               else{
+                  
             
-            $sql = "INSERT INTO users(username,password) VALUES('{$request -> username}','{$request -> password}')";
+            
+            $sql = "INSERT INTO users(username,password,img) VALUES('{$request -> username}','{$request -> password}','{$request -> imageName}')";
           
             $connect->db->query($sql);
             $this -> findAdminId($request -> username);
@@ -52,10 +56,10 @@ class Admins{
                 
                   $errorMsg -> message = "New admin has been added to database";
                   $errorMsg-> value = true;
+                  $errorMsg -> test = $request -> tmPath;
                   echo json_encode($errorMsg);
                     }
-               
-            }
+               }
             else{
            
             $sql = "SELECT * FROM admins";
@@ -64,7 +68,9 @@ class Admins{
             $result = $connect->db->query($sql);
             $users_array = [];
             $this -> getUsernames();
-            echo json_encode($this-> usernames);
+            //$usernamesObject -> names = $this-> usernames;
+            //$usernamesObject -> number = sizeof($this-> usernames);
+            echo json_encode($this->usernames);
            
         }           
     }
@@ -75,6 +81,7 @@ class Admins{
         $connect = new Database($username="",$password="");
         $connect -> connect();
         $result = $connect->db->query($sql);
+        
         while($row = $result -> fetch(PDO::FETCH_ASSOC)){
             
             $this -> id = $row['id'];
@@ -83,14 +90,39 @@ class Admins{
     
     private function getUsernames(){
         
-        $sql = "SELECT username FROM users";
+        $sql = "SELECT * FROM users";
         $connect = new Database($username="",$password="");
         $connect->connect();
         $result = $connect->db->query($sql);
+        
+      
+           $this->usernames = $result->fetchAll(PDO::FETCH_OBJ);
+          
+            
+       
+            
+        /*
         while($row = $result -> fetch(PDO::FETCH_ASSOC)){
           
-          array_push($this -> usernames, $row['username']);
+          $adminObject -> username = $row['username'];
+          array_push($this -> usernames,$adminObject);
+          
         }
+        
+        
+        $sql2 = "SELECT img FROM admins";
+        
+        $connect = new Database($username="",$password="");
+        $connect->connect();
+        $result = $connect->db->query($sql2);
+        while($row = $result -> fetch(PDO::FETCH_ASSOC)){
+            
+            $adminObject -> img = $row['img'];
+            array_push($this -> usernames,$adminObject);
+        }
+        
+       */
+        
         
     }
 }

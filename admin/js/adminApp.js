@@ -1,4 +1,4 @@
-var myPanel = angular.module('MyPanel',['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+var myPanel = angular.module('MyPanel',['ngRoute', 'ngAnimate', 'ui.bootstrap','ui.router','ngFileUpload']);
 myPanel.config(function($routeProvider){
 
     $routeProvider

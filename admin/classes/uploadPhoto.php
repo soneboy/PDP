@@ -1,27 +1,28 @@
 <?php
 
-$fname = $_POST["fname"];
-if(isset($_FILES['image'])){
-    //The error validation could be done on the javascript client side.
-    $errors= array();        
-    $file_name = $_FILES['image']['name'];
-    $file_size =$_FILES['image']['size'];
-    $file_tmp =$_FILES['image']['tmp_name'];
-    $file_type=$_FILES['image']['type'];   
-    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-    $extensions = array("jpeg","jpg","png");        
-    if(in_array($file_ext,$extensions )=== false){
-     $errors[]="image extension not allowed, please choose a JPEG or PNG file.";
+class Fileupload{
+    
+    public function __construct(){
+        
+        $fileObject = new stdClass();
+        
+        if(isset($_FILES['file'])){
+  
+             $fileObject  ->  name  = $_FILES['file']['name'];
+             $fileObject  ->  type  = $_FILES['file']['type'];
+             $fileObject  ->  tmp   = $_FILES['file']['tmp_name'];
+             $fileObject  ->  error = $_FILES['file']['error'];
+             $fileObject  ->  size  = $_FILES['file']['size'];
+             
+             $target_path = 'C:/xampp/htdocs/PDP/admin/ui/img/'.$fileObject  ->  name;
+             move_uploaded_file($fileObject  ->  tmp, $target_path);
+             echo json_encode($fileObject);
+      }
     }
-    if($file_size > 2097152){
-    $errors[]='File size cannot exceed 2 MB';
-    }               
-    if(empty($errors)==true){
-        move_uploaded_file($file_tmp,"images/".$file_name);
-        echo $fname . " uploaded file: " . "images/" . $file_name;
-    }else{
-        print_r($errors);
-    }
+    
 }
+
+   $test = new Fileupload();
+
 ?>
 

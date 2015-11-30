@@ -40,6 +40,5 @@ class Deleteadmin{
     }
                }
 
-
 $test = new Deleteadmin();
 ?>

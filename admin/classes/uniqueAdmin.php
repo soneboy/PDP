@@ -13,10 +13,12 @@ class uniqueAdmin{
         $connect = new Database($username="",$password="");
         $connect ->connect();
         $result = $connect->db->query($sql);
+        
         while($row = $result -> fetch(PDO::FETCH_ASSOC)){
             
            $local_id = $row['id'];
         }
+        
         $sql2="SELECT * FROM admins WHERE admin_id='{$local_id}'";
         $connect ->connect();
         $result = $connect->db->query($sql2);
@@ -26,7 +28,6 @@ class uniqueAdmin{
             echo json_encode($row);
         }
         
-       
         }
     }
 }
