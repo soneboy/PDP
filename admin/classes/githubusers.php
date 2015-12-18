@@ -34,29 +34,16 @@ class Githubusers{
       $connect->db->query($sql);
   }
 
-  //function to show users on Admin
-  public function showGithubUsers(){
-      
-      $sql = "SELECT * FROM githubusers ORDER BY id DESC";
-      $connect = new Database($username="",$password="");
-      $connect->connect();
-      $result = $connect->db->query($sql);
-      while($row = $result -> fetch(PDO::FETCH_ASSOC)){
-            $jsonVar[] = $row;
-      }
 
-      print_r(json_encode($jsonVar));
-      //var_dump($jsonVar);
-  }
   public function test(){
-
+        
+       
         $test1 = $_SERVER['REMOTE_ADDR'];
         echo $test1;
   }
 }
 $test = new Githubusers();
 //$test -> showGithubUsers();
-$test -> showGithubUsers();
 $test ->getUsers();
 //$test -> test();
 

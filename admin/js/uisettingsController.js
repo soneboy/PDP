@@ -1,3 +1,0 @@
-myPanel.controller('uisettingsController', function(){
-    
-});

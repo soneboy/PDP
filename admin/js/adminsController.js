@@ -1,14 +1,34 @@
-myPanel.controller('adminsControllers', function($log, $http, $scope, Upload, github, $timeout, $route, $rootScope, $location){
+myPanel.controller('adminsControllers', function($log, $http, $scope, Upload, github, $timeout, $route, $rootScope, $location, $anchorScroll){
     
+    $scope.previewFile = function(){
+      
+        var getImg = document.getElementById('findSrc');
+        var getInput = document.getElementById('uploadFile').files[0];
+        
+        var reader  = new FileReader();
+
+         reader.onloadend = function () {
+         getImg.src = reader.result;
+         
+           };
+
+         if (getInput) {
+         reader.readAsDataURL(getInput);
+         } else {
+         getImg.src = "";
+         }
+     };
+     
     $scope.upload = function (file) {
         
+  
         Upload.upload({
              url: '../classes/uploadPhoto.php',
              data: {file: file, 'username': $scope.usernameFile}
         }).then(function (resp) {
             
-            $scope.uploadedPhoto = resp.data;
-            
+           $scope.uploadedPhoto = resp.data;
+            console.log($scope.uploadedPhoto);
         });
     };
        
@@ -62,10 +82,11 @@ else{
         $scope.admin.dateofbirth = $scope.admin.dateofbirth  ? $scope.admin.dateofbirth  : 'Not provided';
         $scope.admin.address = $scope.admin.address  ? $scope.admin.address  : 'Not provided';
         $scope.admin.city = $scope.admin.city  ? $scope.admin.city  : 'Not provided';
-        $scope.admin.state = $scope.admin.state   ? $scope.admin.state   : 'Not provided';
+        $scope.admin.state = $scope.admin.state ? $scope.admin.state   : 'Not provided';
         $scope.admin.imageName = $scope.uploadedPhoto.name;
         $scope.admin.tmPath =   $scope.uploadedPhoto.tmp;
-        console.log($scope.admin.tmPath);
+       console.log($scope.uploadedPhoto.name);
+        
         github.searchUsers('../classes/admins.php',$scope.admin).then(function(usersResponse){
             
             $scope.newUserResponse = usersResponse.data;
@@ -87,16 +108,17 @@ else{
             }
         });
         
+        $location.hash('alertMessage');
+        $anchorScroll();
+        
     };
     
     $scope.searchAdmins = function(username){
         
-        
         showUniqueAdmin(username);
     };
     
-    
-        github.users('admins.php').then(function(users){
+    github.users('admins.php').then(function(users){
         
         var adminData = users;
         for(var i = 0; i < adminData.length; i++){
@@ -104,10 +126,9 @@ else{
             $scope.showAdminsData = users[i].username;
             
         }
+        
         console.log($scope.showAdminsData);
-        
-        
-    });
+   });
     
    $scope.deleteAdmin = function(admin){
        

@@ -3,33 +3,40 @@
 </h1>
 <div class="container-fluid" style="background: #000000;" ng-cotroller="searchController" id="searchedContainer">
  
+    <h4>Serach Github Users</h4>
     <select class="form-control" ng-model="selectedUser" ng-change="showSelectedUser(selectedUser)" id="selectUser">
         <option value="">Select user</option>
         <option ng-repeat="users in test" value="{{users}}">{{users}}</option>
     </select>
     <div id="showMostlyUser" ng-show="showMost">
-          <p>The mostly searched user is: {{mostlySearched.mostlysercheduser}}</p>
-        <p>Searched times: {{mostlySearched.serchedtimes}}</p>
+        <h3 style="color:#DEB887;">The mostly searched user is {{mostlySearched.mostlysercheduser}} with score of {{mostlySearched.serchedtimes}} searches!</h3>
         <img ng-src="{{mostlySearched.img}}" />
       
     </div>
     <div id="show_unigue_user" ng-show="showUnique">
         
-        <img ng-src="{{uniqueUser.img}}" />
+        <span>
+            <h3 style="color:#DEB887;"><strong>{{uniqueUser.name}}</strong> ({{uniqueUser.searchedtimes}} {{timeString}} searched)</h3>
+        
+        <img id="userImage" ng-src="{{uniqueUser.img}}" />
+        </span>
+        <!--
         <p>{{uniqueUser.name}}</p>
         <p>{{uniqueUser.searchedtimes}}</p>
-
-        <table .table-striped>
+         !-->
+        <div id="table_scroll">
+        <table id="userTable" class="table table-striped table-bordered">
             <tr>
             <th>Time Visited</th>
-            <th>IP</th>
+            <th>Visited From IP Address</th>
             </tr>
             <tr ng-repeat="unique in dataArray">
             <td>{{unique.date}}</td>
             <td>{{unique.ip}}</td>
             </tr>
         </table>
-   </div>
+      </div>
+    </div>
   
 </div>
 <!-- /.container-fluid -->

@@ -1,7 +1,9 @@
+<a id="alertMessage"></a>
 <div id="page-wrapper" style="background: #2F4F4F;">
     <h1 class="page-header" style="color: #ffffff;">Admin Users
     </h1>
 </div>
+       
         <div class="alert alert-success" ng-show="showAlert" id="sucessOrFail" ng-style="messageBox">
           {{newUserResponse.message}}
         </div>
@@ -21,10 +23,18 @@
            </div>
              <br ng-if="($index +1) % 2 == 0" ng-style="lineStyle"/>
          </div>  
-</div>
+</div>             
                     <div class="form-group" ng-show="showForm" id="createUser">
-                    <div class="button" ngf-select="upload($file)">Upload on file select</div>
+                    <div class="alert alert-info"  style="text-align: center">
+  <strong>Please provide details bellow</strong>
+</div>              <hr/>
+                    <label for="findSrc">Upload photo <span style="color:red;">*</span></label>
                     
+                    <img src = "img/upload_image.png" class ="img-rounded" id="findSrc" width="140" height="140" style="display:block;">
+                    <span class="btn btn-default btn-file">
+                        Browse Computer<input type="file" ngf-select="upload($file)" ng-change="previewFile()" ng-model="test" id="uploadFile" id="findSrc" required/>
+                    </span>
+                    <hr/>
                     <label for="username">Username <span style="color:red;">*</span></label>
                     <input type="text" id="username" class="form-control" ng-model="admin.username" required/><br/>
               

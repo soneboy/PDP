@@ -17,10 +17,5 @@ myPanel.config(function($routeProvider){
             controller: 'adminsControllers'
         })
 
-        .when('/uisettings',{
-            templateUrl: 'uisettings.html',
-            controller: 'uisettingsController'
-        })
-
         .otherwise({redirectTo:'/'});
 });

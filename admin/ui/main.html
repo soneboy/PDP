@@ -1,17 +1,5 @@
 <div id="page-wrapper" style="background: #2F4F4F;">
 
-    <!--
-    $scope.competitions = []
-compSet = []
-for(var i; i < $scope.listings.competitions; i++){
-var competition = $scope.listings.competitions[i];
-if( i % 3 ){
-$scope.competitions.push(compSet);
-compSet = [];
-}
-compSet.push(competition);
-}
-!-->
     <h1 class="page-header" style="color: #ffffff;">Statistics Overview
     </h1>
     <div class="container-fluid" style="background: #000000;">
@@ -36,19 +24,22 @@ compSet.push(competition);
 
 
 
-                <h4>Popup</h4>
+                <h4>Serach Users by Date</h4>
                 <div class="row">
                     <div class="col-md-6">
                         <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="{{format}}"  is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-model="searchText" ng-focus="addFilter(searchText)"  readonly/>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+
+                            <input id="dateImput" type="text" class="form-control" datepicker-popup="{{format}}"  is-open="status.opened" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" ng-model="searchText" ng-focus="addFilter(searchText)" readonly/>
+              <span class="input-group-btn" id="dateOpener">
+                <button id="calendarButton" type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="container" ng-repeat="friend in gitUsers | filter:filterResult" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
+            <h3 ng-style="{'margin':'0','color':'white'}" ng-if="hideheading">The latest 50 searched users</h3>
+            <a href="" ng-click="showAll()" ng-if="hideheading">Show All</a>
+            <div class="container" ng-repeat="friend in gitUsers | filter:filterResult track by $index" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
                 <ul>
                     <li><img ng-src="{{friend.img}}" /></li>
                     <li><strong>Username : </strong>{{friend.name}}</li>
@@ -58,8 +49,6 @@ compSet.push(competition);
                     <li><strong>Serched at :</strong>{{friend.date_visited}}</li>
                 </ul>
             </div>
-
-
         </div>
     </div>
     <!-- /.container-fluid -->

@@ -1,4 +1,4 @@
-myPanel.controller('searchController',function($scope, github){
+myPanel.controller('searchController',function($scope, github, $timeout){
 
     $scope.showMost = true;
     $scope.showUnique = false;
@@ -25,11 +25,24 @@ myPanel.controller('searchController',function($scope, github){
         github.searchUsers('../classes/singleUser.php', data).then(function(data){
             $scope.uniqueUser = data.data[0];
             $scope.dataArray = data.data[0].userdata;
+            
+            if($scope.uniqueUser.searchedtimes === 1){
+                $scope.timeString = 'time';
+            }
+            else{
+                $scope.timeString = 'times';
+            }
 
-            console.log($scope.uniqueUser);
+            
         });
+        
+             var getImage = $("#userImage");
+             var getTable = $("#userTable");
+             var getTableWraper = $("#table_scroll");
+             
+             //getTableWraper.css('width', getTable.innerWidth() + 'px');
+             console.log(getTable.innerHeight());
+    
     };
-
-
-
+ 
 });
