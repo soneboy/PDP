@@ -35,7 +35,7 @@ myPanel.controller('searchController',function($scope, github, $timeout){
 
             
         });
-        
+            
              var getImage = $("#userImage");
              var getTable = $("#userTable");
              var getTableWraper = $("#table_scroll");

@@ -2,9 +2,14 @@
 <div id="page-wrapper" style="background: #2F4F4F;">
     <h1 class="page-header" style="color: #ffffff;">Admin Users
     </h1>
-</div>
+      <div class="container-fluid" style="background: #000000;">
+
        
-        <div class="alert alert-success" ng-show="showAlert" id="sucessOrFail" ng-style="messageBox">
+        <div class="alert alert-success" ng-show="showSuccess" ng-style="messageBox">
+          {{newUserResponse.message}}
+        </div>
+          
+           <div class="alert alert-danger" ng-show="showFail" ng-style="messageBox">
           {{newUserResponse.message}}
         </div>
        
@@ -13,33 +18,41 @@
 </div>
      <div id="showAdmins" ng-show="showAdmins">
          
-         <div class="card" ng-repeat="admin in showAdminsData.names track by $index" id="parendiv" ng-style="parentStyle">
+         <div class="card" ng-repeat="admin in showAdminsData track by $index" id="parendiv" ng-style="parentStyle">
              <div class="card card-block"  ng-style="cardStyle">
-                              <img width="100" height="100" src="http://www.keenthemes.com/preview/conquer/assets/plugins/jcrop/demos/demo_files/image1.jpg" alt="Card image cap" />
+                              <img width="100" height="100" ng-src="img/{{admin.img}}" />
 
-               <h3 class="card-title">{{admin}}</h3>
-               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-               <button class="btn btn-primary" ng-click="searchAdmins(admin)">See Profile</button>
+               <h3 class="card-title">{{admin.username}}</h3>
+               <p class="card-text">Click on the button bellow to see a full profile.</p>
+               <button class="btn btn-primary" ng-click="searchAdmins(admin.username)">See Profile</button>
            </div>
-             <br ng-if="($index +1) % 2 == 0" ng-style="lineStyle"/>
+             <br ng-if="($index +1) % 3 == 0" ng-style="lineStyle"/>
          </div>  
 </div>             
-                    <div class="form-group" ng-show="showForm" id="createUser">
-                    <div class="alert alert-info"  style="text-align: center">
-  <strong>Please provide details bellow</strong>
-</div>              <hr/>
+<div ng-show="showForm">
+          <button type="button" class="btn btn-info" style="margin: 10px;" ng-click="back()">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back
+          </button>
+<div class="form-group"  id="createUser">
+
+<div class="alert alert-info"  style="text-align: center">
+<strong>Please provide details bellow</strong>
+</div>              
+<hr/>
+<form action=""  ng-submit="addAdmins()">
+    
                     <label for="findSrc">Upload photo <span style="color:red;">*</span></label>
                     
                     <img src = "img/upload_image.png" class ="img-rounded" id="findSrc" width="140" height="140" style="display:block;">
                     <span class="btn btn-default btn-file">
-                        Browse Computer<input type="file" ngf-select="upload($file)" ng-change="previewFile()" ng-model="test" id="uploadFile" id="findSrc" required/>
+                        Browse Computer<input type="file" ngf-select="upload($file)" ng-change="previewFile()" ng-model="test" id="uploadFile" id="findSrc" required />
                     </span>
                     <hr/>
                     <label for="username">Username <span style="color:red;">*</span></label>
-                    <input type="text" id="username" class="form-control" ng-model="admin.username" required/><br/>
+                    <input type="text" id="username" class="form-control" ng-model="admin.username" required /><br/>
               
                     <label for="password">Password <span style="color:red;">*</span></label>
-                    <input type="text" id="password" class="form-control" ng-model="admin.password" required/><br/>
+                    <input type="text" id="password" class="form-control" ng-model="admin.password" required /><br/>
                 
                     <label for="firstname">First name</label>
                     <input type="text" id="firstname" class="form-control" ng-model="admin.name"/><br/>
@@ -48,7 +61,7 @@
                     <input type="text" id="lastname" class="form-control" ng-model="admin.lastname"/><br/>
                     
                     <label for="email">Email <span style="color:red;">*</span></label>
-                    <input type="text" id="email" class="form-control" ng-model="admin.email" required/><br/>
+                    <input type="text" id="email" class="form-control" ng-model="admin.email" required /><br/>
               
                     <label for="datebirth">Date of birth</label>
                     <input type="text" id="datebirth" class="form-control" ng-model="admin.dateofbirth"/><br/>
@@ -62,14 +75,17 @@
                     <label for="state">State</label>
                     <input type="text" id="state" class="form-control" ng-model="admin.state"/><br/>
                  
-                    <input type="submit" value="Submit" name="upload" class="btn btn-primary" ng-click="addAdmins()"/>
-                 
+                    <input type="submit" value="Submit"  class="btn btn-primary"/>
+              </form>
         </div>
+</div>
      <div class="alert alert-success" ng-show="showDeleteSucess" ng-style="messageBox">
     <strong>Success!</strong>{{deletedAdmin}}
     </div>
 <div id="showUniqueAdmin" ng-show="showUniqueAdminBox" ng-style="{'margin':'30px'}">
-    <fieldset>
+    <button type="button" class="btn btn-info" style="margin: 10px;" ng-click="back()">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back
+        </button>
     <table class="table table-striped" id="uniqueAdminTable">
          <tr ng-style="{'background':'#5F9EA0','color':'#fff'}">
            
@@ -79,29 +95,29 @@
          </tr>
          <tr>
             <td>Name </td>
-            <td>{{showUniqueAdmin.name}} {{showUniqueAdmin.last_name}}</td>
-            <td rowspan="7"><img src="https://www.wonderplugin.com/wp-content/plugins/wonderplugin-lightbox/images/demo-image0.jpg" width="200" height="200"></td>
+            <td>{{showUniqueAdminApi.name}} {{showUniqueAdminApi.last_name}}</td>
+            <td rowspan="7"><img ng-src="img/{{showUniqueAdminApi.img}}" width="200" height="200"></td>
          </tr>
          <tr>
             <td>Date of birth </td>
-            <td>{{showUniqueAdmin.date_of_birth}}</td>
+            <td>{{showUniqueAdminApi.date_of_birth}}</td>
         </tr>
         <tr>
             <td>Email</td>
-            <td>{{showUniqueAdmin.email}}</td>
+            <td>{{showUniqueAdminApi.email}}</td>
         </tr>
         <tr>
             <td>Address</td>
-            <td>{{showUniqueAdmin.adress}}</td>
+            <td>{{showUniqueAdminApi.adress}}</td>
         </tr>
         <tr>
             <td>City</td>
-            <td>{{showUniqueAdmin.city}}</td>
+            <td>{{showUniqueAdminApi.city}}</td>
         </tr>
         <tr>
             <td>State</td>
-            <td>{{showUniqueAdmin.state}}</td>
+            <td>{{showUniqueAdminApi.state}}</td>
         </tr>
     </table>
 </div>
-
+      </div>

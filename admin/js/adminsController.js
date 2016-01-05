@@ -1,6 +1,11 @@
 myPanel.controller('adminsControllers', function($log, $http, $scope, Upload, github, $timeout, $route, $rootScope, $location, $anchorScroll){
+     
+    github.users('admins.php').then(function(users){
+        
+    $scope.showAdminsData = users;
+});
     
-    $scope.previewFile = function(){
+        $scope.previewFile = function(){
       
         var getImg = document.getElementById('findSrc');
         var getInput = document.getElementById('uploadFile').files[0];
@@ -12,38 +17,49 @@ myPanel.controller('adminsControllers', function($log, $http, $scope, Upload, gi
          
            };
 
-         if (getInput) {
+         if(getInput){
+             
          reader.readAsDataURL(getInput);
-         } else {
+         
+         }
+         else {
          getImg.src = "";
          }
      };
      
-    $scope.upload = function (file) {
+    $scope.upload = function(file){
         
-  
-        Upload.upload({
-             url: '../classes/uploadPhoto.php',
-             data: {file: file, 'username': $scope.usernameFile}
-        }).then(function (resp) {
+        if(file){
+            
+            var fileExtension = file.name.substring(file.name.indexOf('.'), file.name.length);
+        
+            if(fileExtension !== '.jpg' && fileExtension !== '.png' && fileExtension !== '.gif'){
+            alert('Please upload only photo file!');
+            }
+            else{
+                
+               Upload.upload({
+               url: '../classes/uploadPhoto.php',
+               data: {file: file, 'username': $scope.usernameFile}
+           }).then(function(resp) {
             
            $scope.uploadedPhoto = resp.data;
-            console.log($scope.uploadedPhoto);
+
         });
     };
-       
-        function showUniqueAdmin(admin){
+  }
+};
+       function showUniqueAdmin(admin){
             
-        $scope.showAlert = false;
-        $scope.showForm = false;
         $scope.showAdmins = false;
         $scope.showUniqueAdminBox = true;
         $scope.addButton = false;
         $scope.showUsername = admin;
+
         github.searchUsers('../classes/uniqueAdmin.php',admin).then(function(showAdmin){
             
-            $scope.showUniqueAdmin = showAdmin.data;
-            console.log($scope.showUniqueAdmin);
+            $scope.showUniqueAdminApi = showAdmin.data;
+            console.log($scope.showUniqueAdminApi);
         });
     }  
     
@@ -58,10 +74,10 @@ else{
    $scope.addButton = true;
    
    $scope.changeBox = function(){
-        
-        if($scope.showAdminsData.number >= 4){
+       
+        if($scope.showAdminsData.length >= 6){
             
-            alert('You can`t create more than 4 admins!');
+            alert('You can`t create more than 6 admins!');
             $route.reload();
         }
         
@@ -76,6 +92,10 @@ else{
     
     $scope.addAdmins = function(){
         
+        if(typeof $scope.uploadedPhoto === 'undefined'){
+            alert('Please upload photo!');
+        }
+        else{
         
         $scope.admin.name = $scope.admin.name ? $scope.admin.name : '';
         $scope.admin.lastname = $scope.admin.lastname  ? $scope.admin.lastname  : 'Not provided';
@@ -85,32 +105,38 @@ else{
         $scope.admin.state = $scope.admin.state ? $scope.admin.state   : 'Not provided';
         $scope.admin.imageName = $scope.uploadedPhoto.name;
         $scope.admin.tmPath =   $scope.uploadedPhoto.tmp;
-       console.log($scope.uploadedPhoto.name);
+
         
         github.searchUsers('../classes/admins.php',$scope.admin).then(function(usersResponse){
             
             $scope.newUserResponse = usersResponse.data;
-            
+         
+           // console.log($scope.newUserResponse);
             if($scope.newUserResponse.value === false){
                 
-                $scope.showAlert = true;
-                var getElement = document.getElementById('sucessOrFail');
-                getElement.setAttribute('class','alert alert-danger');
+                 $scope.showFail = true;
+                 $scope.showForm = false;
+                 
+                      $timeout(function(){
+                        
+                          $scope.showFail = false;
+                          $scope.showForm = true;
+                        
+              }, 2000); 
             }
             else{
-                   $scope.showAlert = true;
-                   $scope.showForm = false;
-        
+                    $scope.showSuccess = true;
+                    $scope.showFail = false;
+                    $scope.showForm = false;
+                    
+
          $timeout(function(){
             $route.reload();
-        }, 2000); 
-                
-            }
+            
+               }, 2000); 
+             }
         });
-        
-        $location.hash('alertMessage');
-        $anchorScroll();
-        
+      }
     };
     
     $scope.searchAdmins = function(username){
@@ -118,19 +144,7 @@ else{
         showUniqueAdmin(username);
     };
     
-    github.users('admins.php').then(function(users){
-        
-        var adminData = users;
-        for(var i = 0; i < adminData.length; i++){
-            
-            $scope.showAdminsData = users[i].username;
-            
-        }
-        
-        console.log($scope.showAdminsData);
-   });
-    
-   $scope.deleteAdmin = function(admin){
+            $scope.deleteAdmin = function(admin){
        
  
        if(confirm('Are you sure you want to delete user ' + admin + '?') === true){
@@ -151,6 +165,11 @@ else{
        };
   };
    
+   $scope.back = function(){
+       
+       $route.reload();
+   };
+   
    $scope.messageBox = {
     "margin-top":"30px"
 };
@@ -163,12 +182,11 @@ else{
     "padding": "15px"
     
    };
+   
    $scope.lineStyle = {
        
        "clear":"both"
    };
-   
- 
-   }
+}
    
 });

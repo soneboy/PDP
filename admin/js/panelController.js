@@ -44,6 +44,14 @@ $scope.addFilter = function(searchText){
 
 };
 
+ $scope.cardStyle = {
+    
+    "float": "left",
+    "margin": "30px",
+    "background":"yellow",
+    "padding": "15px"
+ };
+
 });
 
 

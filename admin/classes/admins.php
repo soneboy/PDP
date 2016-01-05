@@ -95,34 +95,9 @@ class Admins{
         $connect->connect();
         $result = $connect->db->query($sql);
         
-      
-           $this->usernames = $result->fetchAll(PDO::FETCH_OBJ);
+        $this->usernames = $result->fetchAll(PDO::FETCH_OBJ);
           
             
-       
-            
-        /*
-        while($row = $result -> fetch(PDO::FETCH_ASSOC)){
-          
-          $adminObject -> username = $row['username'];
-          array_push($this -> usernames,$adminObject);
-          
-        }
-        
-        
-        $sql2 = "SELECT img FROM admins";
-        
-        $connect = new Database($username="",$password="");
-        $connect->connect();
-        $result = $connect->db->query($sql2);
-        while($row = $result -> fetch(PDO::FETCH_ASSOC)){
-            
-            $adminObject -> img = $row['img'];
-            array_push($this -> usernames,$adminObject);
-        }
-        
-       */
-        
         
     }
 }

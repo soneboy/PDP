@@ -5,8 +5,6 @@
     <div class="container-fluid" style="background: #000000;">
 
 
-
-        <div id="showGitusers" style="width: 1400px;">
             <style>
                 .full button span {
                     background-color: limegreen;
@@ -38,10 +36,10 @@
                 </div>
             </div>
             <h3 ng-style="{'margin':'0','color':'white'}" ng-if="hideheading">The latest 50 searched users</h3>
-            <a href="" ng-click="showAll()" ng-if="hideheading">Show All</a>
-            <div class="container" ng-repeat="friend in gitUsers | filter:filterResult track by $index" style="max-width: 400px; height150:px; background-color: yellow;margin: 20px; border: 1px solid black;float: left">
-                <ul>
-                    <li><img ng-src="{{friend.img}}" /></li>
+            <a href="" ng-click="showAll()" ng-if="hideheading" style="display: block;">Show All</a>
+            <div class="card card-block" ng-repeat="friend in gitUsers | filter:filterResult track by $index" ng-style="cardStyle">
+                <ul style="list-style-type: none;">
+                    <li><img ng-src="{{friend.img}}" width="100" height="100" style="margin : 5px;"/></li>
                     <li><strong>Username : </strong>{{friend.name}}</li>
                     <li><strong>Repos : </strong>{{friend.repos}}</li>
                     <li><strong>Created at : </strong>{{friend.created}}</li>
@@ -49,7 +47,8 @@
                     <li><strong>Serched at :</strong>{{friend.date_visited}}</li>
                 </ul>
             </div>
-        </div>
+
+            
     </div>
     <!-- /.container-fluid -->
 
